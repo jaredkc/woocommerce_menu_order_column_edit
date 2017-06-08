@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WooCommerce Menu Order Admin Column and Edit
- * Plugin URI:
+ * Plugin URI:  https://github.com/jaredkc/woocommerce_menu_order_column_edit
  * Description: View and quickly update WooCommerce product menu orders in the admin.
  * Version:     1.0
  * Author:      Jared Cornwall
