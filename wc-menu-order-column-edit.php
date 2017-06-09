@@ -148,7 +148,7 @@ class WC_Menu_Order_Column_Edit {
 			.jc-menu-order-set.jc-active .jc-menu-order-update {
 				display: inline-block;
 			}
-			// Do not use WC sort products, does not play nicely with desired menu_order
+			/* Do not use WC sort products, does not play nicely with desired menu_order */
 			ul.subsubsub li.byorder {
 				display: none;
 			}
