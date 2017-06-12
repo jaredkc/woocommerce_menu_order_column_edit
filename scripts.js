@@ -1,7 +1,7 @@
 jQuery(function($){
 
 	$('.jc-menu-order').click(function(e){
-		$(this).parent().addClass('jc-active');
+		$(this).select().parent().addClass('jc-active');
 	});
 
 	$('.jc-menu-order-update').click(function(e){
@@ -22,8 +22,7 @@ jQuery(function($){
 			url: jc_update_menu_order.ajax_url,
 			data: ajaxData,
 			success: function(data) {
-				$this.text('Update');
-				// alert('Got this from the server: ' + data);
+				$this.text('Update').parent().removeClass('jc-active');
 			},
 			error: function(errorThrown){
 				$this.text('ERROR!');
@@ -32,6 +31,5 @@ jQuery(function($){
 		});
 
 	});
-
 
 });
