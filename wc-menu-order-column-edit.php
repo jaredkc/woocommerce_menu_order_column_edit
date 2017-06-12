@@ -29,7 +29,6 @@ class WC_Menu_Order_Column_Edit {
 	 * @return WC_Menu_Order_Column_Edit The instance
 	 */
 	public static function get_instance() {
-
 		if ( ! self::$instance )
 			self::$instance = new self;
 
@@ -48,6 +47,10 @@ class WC_Menu_Order_Column_Edit {
 	 *  - admin_print_scripts
 	 */
 	private function init_hooks() {
+		// Always load styles to hide WC sort, does not play nicely with desired menu_order
+		add_action( 'admin_head', array( $this, 'jc_product_order_css') );
+
+		// Only giving access to full admins.
 		if ( ! current_user_can('administrator') ) {
 			return;
 		}
@@ -56,7 +59,6 @@ class WC_Menu_Order_Column_Edit {
 		add_action( 'manage_product_posts_custom_column', array( $this, 'jc_product_order_value') );
 		add_filter( 'manage_edit-product_sortable_columns', array( $this, 'jc_product_order_sort' ) );
 
-		add_action( 'admin_head', array( $this, 'jc_product_order_css') );
 		add_action( 'admin_enqueue_scripts', array( $this, 'jc_product_order_js' ) );
 
 		add_action( 'wp_ajax_jc_update_menu_order', array( $this, 'jc_update_menu_order') );
@@ -82,7 +84,7 @@ class WC_Menu_Order_Column_Edit {
 
 		switch ($name) {
 			case 'menu_order':
-			echo '<div class="jc-menu-order-set"><input data-product="' . $post->ID . '" class="jc-menu-order" type="number" value="' . $post->menu_order . '"><a href="#" class="jc-menu-order-update">Update</a></div>';
+			echo '<div class="jc-menu-order-set"><input data-product="' . $post->ID . '" class="jc-menu-order" type="number" value="' . $post->menu_order . '"><span class="jc-menu-order-update button">Update</span></div>';
 			break;
 		default:
 			break;
@@ -140,12 +142,12 @@ class WC_Menu_Order_Column_Edit {
 				background: #fff;
 				box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
 			}
-			.jc-menu-order-update {
+			.jc-menu-order-update.button {
 				display: none;
 				padding-left: 5px;
 				padding-right: 5px;
 			}
-			.jc-menu-order-set.jc-active .jc-menu-order-update {
+			.jc-menu-order-set.jc-active .jc-menu-order-update.button {
 				display: inline-block;
 			}
 			/* Do not use WC sort products, does not play nicely with desired menu_order */
